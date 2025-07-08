@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Water Quality Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="emoji-toggle-container">
+        <span id="darkToggle" role="button" title="Toggle dark mode">🌞</span>
+    </div>
+
+    <div class="container">
+        <h1>💧 Water Quality Prediction</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <input type="number" name="year" placeholder="Enter Year (e.g., 2024)" value="{{ year or '' }}" required>
+            
+            <input type="text" name="station_id" placeholder="Enter Station ID" value="{{ station_id or '' }}" required>
+            
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if predictions %}
+        <div id="results-section" class="results">
+            <h2>Results for Station {{ station_id }} in {{ year }}</h2>
+            <p class="status-badge">
+                Water Quality: <span class="badge badge-{{ quality_status_class }}">{{ quality_status }}</span>
+            </p>
+            <ul>
+                {% for k, v in predictions.items() %}
+                <li><strong>{{ k }}:</strong> {{ v }} mg/L</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="chart-container" id="chart-area">
+            <h3>📊 Pollutant Levels (mg/L)</h3>
+            <canvas id="pollutionChart"
+                    data-labels='{{ predictions.keys() | list | tojson | safe }}'
+                    data-values='{{ predictions.values() | list | tojson | safe }}'></canvas>
+            <div class="download-buttons">
+                <button onclick="downloadCSV()">⬇ Download CSV</button>
+                <button onclick="downloadPDF()">📄 Download PDF</button>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+</body>
+</html>

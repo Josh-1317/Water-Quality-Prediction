@@ -1,0 +1,133 @@
+/* --- General & Dark Mode --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding-bottom: 50px;
+    background: #f4f7f6;
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+}
+body.dark-mode {
+    background: #1a1a1a;
+    color: #eee;
+}
+
+/* --- Container & Layout --- */
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+h1 {
+    text-align: center;
+    color: #0056b3;
+}
+body.dark-mode h1 {
+    color: #58a6ff;
+}
+
+/* --- Form Elements --- */
+form input, form select, form button {
+    display: block;
+    margin: 15px 0;
+    padding: 14px;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 8px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    border: 1px solid #ccc;
+}
+body.dark-mode form input, body.dark-mode form select {
+    background: #2c2c2c;
+    border-color: #555;
+    color: #eee;
+}
+form button {
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+form button:hover {
+    background: #0056b3;
+}
+form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* --- Results, Chart & Downloads --- */
+.results, .chart-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: background 0.3s;
+}
+body.dark-mode .results, body.dark-mode .chart-container {
+    background: #252525;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.chart-container canvas {
+    max-height: 400px;
+    width: 100%;
+}
+.download-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+.download-buttons button {
+    margin: 5px;
+    padding: 10px 20px;
+    background: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.download-buttons button:hover {
+    background: #117a8b;
+}
+
+/* --- Status Badges (Dynamic Colors) --- */
+.status-badge .badge {
+    color: white;
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.badge-clean { background-color: #28a745; }
+.badge-moderate { background-color: #ffc107; color: #333 !important; }
+.badge-poor { background-color: #fd7e14; }
+.badge-very-poor { background-color: #dc3545; }
+.badge-critical { background-color: #8b0000; }
+
+/* --- Flashed Messages --- */
+.flash-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+}
+.flash-message.error {
+    background-color: #dc3545;
+}
+
+/* --- Dark Mode Toggle --- */
+.emoji-toggle-container {
+    text-align: right;
+    padding: 15px 25px 0;
+}
+#darkToggle {
+    font-size: 28px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+#darkToggle:hover {
+    transform: scale(1.1);
+}
